@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "AI Bookmark Manager",
+  "version": "1.0",
+  "description": "A Chrome extension to categorize and sort bookmarks using AI.",
+  "permissions": [
+    "bookmarks",
+    "contextMenus",
+    "storage",
+    "notifications"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+    }
+  }
+}
