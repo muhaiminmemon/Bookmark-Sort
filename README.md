@@ -22,7 +22,7 @@ The AI Bookmark Manager uses a BERT (Bidirectional Encoder Representations from 
 
 3. **Tokenization**: I used the BERT tokenizer to convert the bookmark titles into a format suitable for the BERT model. This involves splitting the text into tokens and converting them into numerical representations.
 
-4. **Model Training**: The pre-trained BERT model was fine-tuned on our dataset using the `TFBertForSequenceClassification` class from the `transformers` library. The model was trained to classify the bookmarks into the predefined categories.
+4. **Model Training**: The pre-trained BERT model was fine-tuned on my dataset using the `TFBertForSequenceClassification` class from the `transformers` library. The model was trained to classify the bookmarks into the predefined categories.
 
 5. **Model Evaluation**: The fine-tuned model was evaluated on a validation set to ensure its accuracy, it has an objective accurary of 87%.
 
