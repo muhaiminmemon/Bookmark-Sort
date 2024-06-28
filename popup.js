@@ -1,12 +1,17 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const sortButton = document.getElementById('sort');
-
-    sortButton.addEventListener('click', () => {
-        chrome.runtime.sendMessage({ action: 'sortBookmarks' }, (response) => {
-            console.log(response.status);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('sort').addEventListener('click', function () {
+        chrome.runtime.sendMessage({ action: 'sortBookmarks' }, function (response) {
+            if (response.status === 'Sorting initiated') {
+                // Show a message in the popup
+                const messageElement = document.createElement('p');
+                messageElement.textContent = 'Bookmarks have been sorted.';
+                document.getElementById('content').appendChild(messageElement);
+            }
         });
     });
 });
+
+
 
 
 function refreshBookmarks() {

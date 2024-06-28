@@ -1,6 +1,5 @@
 chrome.runtime.onInstalled.addListener(() => {
     const categories = [
-        "Technology & Programming",
         "Education / E-Learning",
         "Lifestyle",
         "Movies & TV Shows",
@@ -9,7 +8,13 @@ chrome.runtime.onInstalled.addListener(() => {
 
     // Create folders if they don't exist
     chrome.bookmarks.getTree((bookmarkTreeNodes) => {
-        const bookmarkBar = bookmarkTreeNodes[0].children[0];
+        const bookmarkBar = bookmarkTreeNodes[0].children.find(child => child.title === 'Bookmarks Bar' || child.id === '1');
+        if (!bookmarkBar) {
+            console.error('Bookmark Bar not found.');
+            return;
+        }
+        console.log('Bookmark Bar:', bookmarkBar);
+
         const existingFolders = new Set(bookmarkBar.children.map(folder => folder.title));
 
         categories.forEach(category => {
@@ -24,7 +29,7 @@ chrome.runtime.onInstalled.addListener(() => {
         type: 'basic',
         iconUrl: 'icons/icon128.png',
         title: 'Welcome to AI Bookmark Manager',
-        message: 'Your bookmarks will be categorized into the following folders: Technology & Programming, Education / E-Learning, Lifestyle, Movies & TV Shows, Career & Job Searching.'
+        message: 'Your bookmarks will be categorized into the following folders: Education / E-Learning, Lifestyle, Movies & TV Shows, Career & Job Searching.'
     });
 
     console.log("AI Bookmark Manager installed.");
@@ -41,6 +46,13 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "sortBookmarks") {
         sortAllBookmarks();
+        // Show notification after sorting
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'icons/icon128.png',
+            title: 'AI Bookmark Manager',
+            message: 'Bookmarks have been sorted.'
+        });
     }
 });
 
@@ -94,7 +106,12 @@ function moveBookmarkToCategoryFolder(bookmark, category) {
         });
         if (!folderFound) {
             chrome.bookmarks.getTree((bookmarkTreeNodes) => {
-                const bookmarkBar = bookmarkTreeNodes[0].children[0];
+                const bookmarkBar = bookmarkTreeNodes[0].children.find(child => child.title === 'Bookmarks Bar' || child.id === '1');
+                if (!bookmarkBar) {
+                    console.error('Bookmark Bar not found.');
+                    return;
+                }
+                console.log('Bookmark Bar:', bookmarkBar);
                 chrome.bookmarks.create({ parentId: bookmarkBar.id, title: category }, (newFolder) => {
                     chrome.bookmarks.move(bookmark.id, { parentId: newFolder.id }, () => {
                         console.log(`Created new folder and moved bookmark to: ${category}`);
@@ -107,9 +124,12 @@ function moveBookmarkToCategoryFolder(bookmark, category) {
 
 function sortAllBookmarks() {
     chrome.bookmarks.getTree((bookmarkTreeNodes) => {
-        bookmarkTreeNodes.forEach((node) => {
-            traverseBookmarks(node);
-        });
+        const bookmarkBar = bookmarkTreeNodes[0].children.find(child => child.title === 'Bookmarks Bar' || child.id === '1');
+        if (!bookmarkBar) {
+            console.error('Bookmark Bar not found.');
+            return;
+        }
+        traverseBookmarks(bookmarkBar);
     });
 }
 
