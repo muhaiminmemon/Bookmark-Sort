@@ -65,7 +65,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function categorizeBookmark(bookmark) {
-    fetch('http://127.0.0.1:5000/categorize', {
+    fetch('https://bookmarksort.azurewebsites.net/categorize', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
