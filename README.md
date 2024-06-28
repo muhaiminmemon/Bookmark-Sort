@@ -33,15 +33,13 @@ The result is an AI model that can accurately categorize bookmarks based on thei
 ### Example
 
 #### Before Sorting
-![Before Sorting](path/to/your/image1.png)
+![Before Sorting](https://github.com/muhaiminmemon/Bookmark-Sort/blob/master/before%20sorting.png)
 
 #### Using the Extension
-![Using the Extension](path/to/your/image2.png)
+![Using the Extension](https://github.com/muhaiminmemon/Bookmark-Sort/blob/master/using%20the%20ext.png)
 
 #### After Sorting
-![After Sorting](path/to/your/image3.png)
-![After Sorting](path/to/your/image4.png)
-
+![After Sorting](https://github.com/muhaiminmemon/Bookmark-Sort/blob/master/after%20the%20ext.png)
 
 ## Features
 
